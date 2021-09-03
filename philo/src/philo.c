@@ -30,7 +30,8 @@ int		check_args(int argc, char **argv)
 
 int		main(int argc, char **argv)
 {
-	if (check_args(argc, argv) != 0)
+	if (check_args(argc++, argv++) != 0)
 		return (1);
+
 	return (0);
 }
