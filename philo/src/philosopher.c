@@ -9,11 +9,6 @@ long long int	ft_time(struct timezone *t_zone)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-void	philo_sleep(long long int time)
-{
-	usleep(time);
-}
-
 void	philosopher_life_unlim(t_p_arg *p_a, \
 								int time_to_e, int time_to_s)
 {
@@ -30,7 +25,7 @@ void	philosopher_life_unlim(t_p_arg *p_a, \
 		philo_output("has taken a fork", ft_time(t_z), p_a);
 		pthread_mutex_lock(p_a->p.s_fork);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
-		*l_meal = ft_time(t_z);
+		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
 		usleep(time_to_e - (*l_meal - ft_time(t_z)));
 		pthread_mutex_unlock(p_a->p.f_fork);
@@ -57,12 +52,12 @@ void	philosopher_life_lim(t_p_arg *p_a, \
 		philo_output("has taken a fork", ft_time(t_z), p_a);
 		pthread_mutex_lock(p_a->p.s_fork);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
-		*l_meal = ft_time(t_z);
+		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
 		usleep(time_to_e - (*l_meal - ft_time(t_z)));
 		pthread_mutex_unlock(p_a->p.f_fork);
 		pthread_mutex_unlock(p_a->p.s_fork);
-		if (--*num_to_feed < 1)
+		if (is_zero_and_decrease_num_to_feed(p_a, num_to_feed) != 0)
 			break ;
 		s_sleep = ft_time(t_z);
 		philo_output("is sleeping", s_sleep, p_a);
@@ -70,16 +65,20 @@ void	philosopher_life_lim(t_p_arg *p_a, \
 	}
 }
 
-void	*philosopher_life(void *p_a)
+void	*philo_life_lim_start(void *p_a)
 {
-	if (((t_p_arg *)p_a)->c_info->num_to_feed < 0)
-		philosopher_life_unlim((t_p_arg *)p_a, \
-								((t_p_arg *)p_a)->c_info->time_to_e, \
-								((t_p_arg *)p_a)->c_info->time_to_s);
-	else
-		philosopher_life_lim((t_p_arg *)p_a, \
+	philosopher_life_lim((t_p_arg *)p_a, \
 								((t_p_arg *)p_a)->c_info->time_to_e, \
 								((t_p_arg *)p_a)->c_info->time_to_s, \
 								(&((t_p_arg *)p_a)->p.num_to_feed));
 	return (0);
 }
+
+void	*philo_life_unlim_start(void *p_a)
+{
+	philosopher_life_unlim((t_p_arg *)p_a, \
+								((t_p_arg *)p_a)->c_info->time_to_e, \
+								((t_p_arg *)p_a)->c_info->time_to_s);
+	return (0);
+}
+

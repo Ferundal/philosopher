@@ -13,12 +13,8 @@ void	p_overseer_unlim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt)
 		counter = 0;
 		while (counter < philo_amnt)
 		{
-			if (curr_time - p_arg_p[counter].p.l_meal > time_to_d)
-			{
-				pthread_mutex_lock(&c_info->death_mut);
-				overseer_output(curr_time, p_arg_p + counter);
+			if (is_dead(p_arg_p, c_info, curr_time, time_to_d) != 0)
 				return ;
-			}
 			++counter;
 		}
 	}
@@ -32,11 +28,14 @@ int	philos_full(t_p_arg ***p_arg_pp, int counter, int *philo_amnt)
 
 	if (*philo_amnt > 1)
 	{
-		first_p_arg_p = *p_arg_pp;
-		second_p_arg_p = *p_arg_pp + counter;
-		temp_p_arg_p = *first_p_arg_p;
-		*first_p_arg_p = *second_p_arg_p;
-		*second_p_arg_p = temp_p_arg_p;
+		if (counter > 0)
+		{
+			first_p_arg_p = *p_arg_pp;
+			second_p_arg_p = *p_arg_pp + counter;
+			temp_p_arg_p = *first_p_arg_p;
+			*first_p_arg_p = *second_p_arg_p;
+			*second_p_arg_p = temp_p_arg_p;
+		}
 		++*p_arg_pp;
 	}
 	--*philo_amnt;
@@ -55,14 +54,10 @@ void	p_overseer_lim(t_comm_info *c_info, t_p_arg **p_arg_pp, int philo_amnt)
 		curr_time = ft_time(&c_info->t_zone);
 		counter = 0;
 		while (counter < philo_amnt)
-			if (p_arg_pp[counter]->p.num_to_feed != 0)
+			if (is_zero_num_to_feed(p_arg_pp[counter]) != 0)
 			{
-				if (curr_time - p_arg_pp[counter]->p.l_meal > time_to_d)
-				{
-					pthread_mutex_lock(&c_info->death_mut);
-					overseer_output(curr_time, p_arg_pp[counter]);
-					return;
-				}
+				if (is_dead(p_arg_pp[counter], c_info, curr_time, time_to_d) != 1)
+					return ;
 				++counter;
 			}
 			else

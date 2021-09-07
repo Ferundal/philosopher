@@ -48,6 +48,8 @@ SRCS_C=				src/main.c \
 					src/philo_init.c \
 					src/philo_simulation.c \
 					src/philo_overseer.c \
+					src/philo_free.c \
+					src/philo_acc_mutexes.c \
 
 SRCS_C_BONUS=
 
