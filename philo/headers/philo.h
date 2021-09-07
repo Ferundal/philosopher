@@ -28,6 +28,7 @@ typedef struct		s_comm_info
 	int				time_to_d;
 	int				time_to_e;
 	int				time_to_s;
+	int				time_dealay;
 	int				num_to_feed;
 }					t_comm_info;
 
