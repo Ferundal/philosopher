@@ -8,7 +8,10 @@ int	init_common_info(t_comm_info *c_info_p, \
 	c_info_p->time_to_d = ft_atoi(argv[1]);
 	c_info_p->time_to_e = ft_atoi(argv[2]) * 1000;
 	c_info_p->time_to_s = ft_atoi(argv[3]) * 1000;
-	c_info_p->time_dealay = c_info_p->time_to_e / 2;
+	if (c_info_p->time_to_d * 1000 < c_info_p->time_to_e)
+		c_info_p->time_dealay = c_info_p->time_to_d / 2;
+	else
+		c_info_p->time_dealay = c_info_p->time_to_e / 2;
 	if (argc < 5)
 		c_info_p->num_to_feed = -1;
 	else
