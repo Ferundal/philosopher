@@ -9,9 +9,9 @@ int	init_common_info(t_comm_info *c_info_p, \
 	c_info_p->time_to_e = ft_atoi(argv[2]) * 1000;
 	c_info_p->time_to_s = ft_atoi(argv[3]) * 1000;
 	if (c_info_p->time_to_d * 1000 < c_info_p->time_to_e)
-		c_info_p->time_dealay = c_info_p->time_to_d / 2 * 1000;
+		c_info_p->time_dealay = c_info_p->time_to_d / 4 * 1000;
 	else
-		c_info_p->time_dealay = c_info_p->time_to_e / 2;
+		c_info_p->time_dealay = c_info_p->time_to_e / 4;
 	if (argc < 5)
 		c_info_p->num_to_feed = -1;
 	else
@@ -52,7 +52,7 @@ pthread_mutex_t	*init_fork_array(int fork_amnt)
 
 int		color_select(int num)
 {
-	num = num % 28;
+	num = num % 27;
 	if (num < 6)
 		num += 31;
 	else if (num < 15)
