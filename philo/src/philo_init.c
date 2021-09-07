@@ -53,11 +53,13 @@ pthread_mutex_t	*init_fork_array(int fork_amnt)
 int		color_select(int num)
 {
 	num = num % 27;
-	if (num < 6)
+	if (num < 1)
+		num += 7;
+	if (num < 7)
 		num += 31;
-	else if (num < 14)
+	else if (num < 15)
 		num += 33;
-	else if (num < 21)
+	else if (num < 22)
 		num += 75;
 	else
 		num += 78;
