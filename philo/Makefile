@@ -38,9 +38,16 @@ INC_HEADERS_FORMAT=	-I ${dir ${HEADERS}}
 
 INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 
-SRCS_C=				src/philo.c \
+SRCS_C=				src/main.c \
 					src/philo_errors.c \
 					src/ft_isdigit.c \
+					src/philosopher.c \
+					src/philo_output.c \
+					src/philo_usleep.c \
+					src/ft_atoi.c \
+					src/philo_init.c \
+					src/philo_simulation.c \
+					src/philo_overseer.c \
 
 SRCS_C_BONUS=
 
@@ -54,9 +61,9 @@ OBJS_C=				${SRCS_C:src/%.c=obj/%.o}
 
 NAME=				philo
 
-CC=					cc
+CC=					cc -pthread
 RM=					rm -f
-LD=					ld
+LD=					ld -pthread
 
 ALL_CFLAGS=			-Wall -Wextra -Werror -g ${INC_HEADERDIR} ${CFLAGS}
 ALL_LDFLAGS=		-g ${LDFLAGS}
