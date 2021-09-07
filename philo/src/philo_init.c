@@ -55,9 +55,9 @@ int		color_select(int num)
 	num = num % 27;
 	if (num < 6)
 		num += 31;
-	else if (num < 15)
+	else if (num < 14)
 		num += 33;
-	else if (num < 22)
+	else if (num < 21)
 		num += 75;
 	else
 		num += 78;
