@@ -26,7 +26,7 @@ int	simulatiion_unlim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pth
 	c_info->start_t = start_t;
 	while (i < philo_amnt)
 	{
-		(p_arg_p + i)->p.l_meal += start_t;
+		(p_arg_p + i)->p.l_meal = start_t;
 		pthread_create(tread_p + i, NULL, philosopher_life, p_arg_p + i);
 		i += 2;
 	}
@@ -34,7 +34,7 @@ int	simulatiion_unlim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pth
 	i = 1;
 	while (i < philo_amnt)
 	{
-		(p_arg_p + i)->p.l_meal += start_t;
+		(p_arg_p + i)->p.l_meal = start_t;
 		pthread_create(tread_p + i, NULL, philosopher_life, p_arg_p + i);
 		i += 2;
 	}
@@ -55,7 +55,7 @@ int	simulatiion_lim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pthre
 	c_info->start_t = start_t;
 	while (i < philo_amnt)
 	{
-		(p_arg_p + i)->p.l_meal += start_t;
+		(p_arg_p + i)->p.l_meal = start_t;
 		pthread_create(tread_p + i, NULL, philosopher_life, p_arg_p + i);
 		i += 2;
 	}
@@ -63,7 +63,7 @@ int	simulatiion_lim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pthre
 	i = 1;
 	while (i < philo_amnt)
 	{
-		(p_arg_p + i)->p.l_meal += start_t;
+		(p_arg_p + i)->p.l_meal = start_t;
 		pthread_create(tread_p + i, NULL, philosopher_life, p_arg_p + i);
 		i += 2;
 	}
