@@ -23,7 +23,6 @@ int	is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
 	}
 	pthread_mutex_lock(&c_info->death_mut);
 	overseer_output(curr_time, p_arg_p);
-	pthread_mutex_unlock(&p_arg_p->p.d_t_acc);
 	return (1);
 }
 
