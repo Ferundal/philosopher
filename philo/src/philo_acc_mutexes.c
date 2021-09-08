@@ -1,10 +1,15 @@
 #include "philo.h"
 
-void	set_l_meal(long long int *l_meal, t_p_arg *p_a, struct timezone *t_z)
+long long int	set_l_meal(long long int *l_meal, t_p_arg *p_a, \
+												struct timezone *t_z)
 {
+	long long int	ret_val;
+
 	pthread_mutex_lock(&p_a->p.d_t_acc);
-	*l_meal = ft_time(t_z);
+	ret_val = ft_time(t_z);
+	*l_meal = ret_val;
 	pthread_mutex_unlock(&p_a->p.d_t_acc);
+	return (ret_val);
 }
 
 int	is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \

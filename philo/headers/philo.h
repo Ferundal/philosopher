@@ -63,7 +63,7 @@ void			p_overseer_unlim(t_comm_info *c_info, \
 void			p_overseer_lim(t_comm_info *c_info, \
 						t_p_arg **p_arg_pp, int philo_amnt);
 void			*destroy_philo_mutex(t_p_arg *p_arg_p, int counter);
-void			set_l_meal(long long int *l_meal, t_p_arg *p_a, \
+long long int	set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 												struct timezone *t_z);
 int				is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
 							long long int curr_time, long long int time_to_d);
