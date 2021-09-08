@@ -87,20 +87,23 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 	counter = 0;
 	while (counter < philo_amnt)
 	{
+		if (init_philo_acc_mutexes(p_arg_p + counter) != 0)
+			return (destroy_philo_mutex(p_arg_p, counter));
 		p_arg_p[counter].c_info = c_info;
 		p_arg_p[counter].p.philo_id = counter + 1;
 		p_arg_p[counter].p.color = color_select(counter);
 		p_arg_p[counter].p.num_to_feed = c_info->num_to_feed;
-		p_arg_p[counter].p.f_fork = fork_arr + counter;
-		if (init_philo_acc_mutexes(p_arg_p + counter) != 0)
-			return (destroy_philo_mutex(p_arg_p, counter));
 		if (counter != 0)
-			p_arg_p[counter].p.s_fork = fork_arr + counter - 1;
+		{
+			p_arg_p[counter].p.b_fork = fork_arr + counter;
+			p_arg_p[counter].p.l_fork = fork_arr + counter - 1;
+		}
 		else
-			p_arg_p[counter].p.s_fork = fork_arr + philo_amnt - 1;
+		{
+			p_arg_p[counter].p.b_fork = fork_arr + philo_amnt - 1;
+			p_arg_p[counter].p.l_fork = fork_arr + counter;
+		}
 		++counter;
-		if ((p_arg_p[counter].p.philo_id % 2) == 1)
-			swap_forks(&p_arg_p[counter].p.f_fork, &p_arg_p[counter].p.s_fork);
 	}
 	return (p_arg_p);
 }

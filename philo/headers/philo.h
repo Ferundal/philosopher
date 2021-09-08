@@ -11,8 +11,8 @@ typedef struct		s_philo
 {
 	int				philo_id;
 	int				color;
-	pthread_mutex_t	*f_fork;
-	pthread_mutex_t	*s_fork;
+	pthread_mutex_t	*b_fork;
+	pthread_mutex_t	*l_fork;
 	long long int	l_meal;
 	int				num_to_feed;
 	pthread_mutex_t	d_t_acc;
