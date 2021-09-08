@@ -12,10 +12,12 @@ long long int	set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 	return (ret_val);
 }
 
-int	is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
-							long long int curr_time, long long int time_to_d)
+int	is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, long long int time_to_d)
 {
+	long long int curr_time;
+
 	pthread_mutex_lock(&p_arg_p->p.d_t_acc);
+	curr_time = ft_time(&c_info->t_zone);
 	if (curr_time - p_arg_p->p.l_meal < time_to_d)
 	{
 		pthread_mutex_unlock(&p_arg_p->p.d_t_acc);
