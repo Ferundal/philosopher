@@ -89,16 +89,11 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 		p_arg_p[counter].p.philo_id = counter + 1;
 		p_arg_p[counter].p.color = color_select(counter);
 		p_arg_p[counter].p.num_to_feed = c_info->num_to_feed;
+		p_arg_p[counter].p.f_fork = fork_arr + counter;
 		if (counter != 0)
-		{
-			p_arg_p[counter].p.f_fork = fork_arr + counter;
 			p_arg_p[counter].p.s_fork = fork_arr + counter - 1;
-		}
 		else
-		{
-			p_arg_p[counter].p.f_fork = fork_arr + counter;
 			p_arg_p[counter].p.s_fork = fork_arr + philo_amnt - 1;
-		}
 		++counter;
 	}
 	return (p_arg_p);
