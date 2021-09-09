@@ -6,12 +6,8 @@ int	init_common_info(t_comm_info *c_info_p, \
 	c_info_p->t_zone.tz_minuteswest = 0;
 	c_info_p->t_zone.tz_dsttime = 0;
 	c_info_p->time_to_d = ft_atoi(argv[1]);
-	c_info_p->time_to_e = ft_atoi(argv[2]) * 1000;
-	c_info_p->time_to_s = ft_atoi(argv[3]) * 1000;
-	if (c_info_p->time_to_d * 1000 < c_info_p->time_to_e)
-		c_info_p->time_dealay = c_info_p->time_to_d / 2 * 1000;
-	else
-		c_info_p->time_dealay = c_info_p->time_to_e / 2;
+	c_info_p->time_to_e = ft_atoi(argv[2]);
+	c_info_p->time_to_s = ft_atoi(argv[3]);
 	if (argc < 5)
 		c_info_p->num_to_feed = -1;
 	else
@@ -95,13 +91,13 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 		p_arg_p[counter].p.num_to_feed = c_info->num_to_feed;
 		if (counter != 0)
 		{
-			p_arg_p[counter].p.b_fork = fork_arr + counter;
-			p_arg_p[counter].p.l_fork = fork_arr + counter - 1;
+			p_arg_p[counter].p.f_fork = fork_arr + counter;
+			p_arg_p[counter].p.s_fork = fork_arr + counter - 1;
 		}
 		else
 		{
-			p_arg_p[counter].p.l_fork = fork_arr + philo_amnt - 1;
-			p_arg_p[counter].p.b_fork = fork_arr + counter;
+			p_arg_p[counter].p.f_fork = fork_arr + counter;
+			p_arg_p[counter].p.s_fork = fork_arr + philo_amnt - 1;
 		}
 		++counter;
 	}

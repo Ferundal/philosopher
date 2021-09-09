@@ -18,21 +18,22 @@ void	philosopher_life_unlim(t_p_arg *p_a, \
 
 	t_z = &p_a->c_info->t_zone;
 	l_meal = &p_a->p.l_meal;
+	wait_start(p_a);
 	while (1)
 	{
 		philo_output("is thinking", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.l_fork);
-		philo_output("has taken a fork", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.b_fork);
-		philo_output("has taken a fork", ft_time(t_z), p_a);
+		pthread_mutex_lock(p_a->p.f_fork);
+		philo_output("has taken a first fork", ft_time(t_z), p_a);
+		pthread_mutex_lock(p_a->p.s_fork);
+		philo_output("has taken a second fork", ft_time(t_z), p_a);
 		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
-		usleep(time_to_e);
-		pthread_mutex_unlock(p_a->p.b_fork);
-		pthread_mutex_unlock(p_a->p.l_fork);
+		my_usleep(time_to_e);
+		pthread_mutex_unlock(p_a->p.f_fork);
+		pthread_mutex_unlock(p_a->p.s_fork);
 		s_sleep = ft_time(t_z);
 		philo_output("is sleeping", s_sleep, p_a);
-		usleep(time_to_s);
+		my_usleep(time_to_s);
 	}
 }
 
@@ -45,23 +46,24 @@ void	philosopher_life_lim(t_p_arg *p_a, \
 
 	t_z = &p_a->c_info->t_zone;
 	l_meal = &p_a->p.l_meal;
+	wait_start(p_a);
 	while (1)
 	{
 		philo_output("is thinking", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.l_fork);
+		pthread_mutex_lock(p_a->p.f_fork);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.b_fork);
+		pthread_mutex_lock(p_a->p.s_fork);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
 		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
-		usleep(time_to_e);
-		pthread_mutex_unlock(p_a->p.b_fork);
-		pthread_mutex_unlock(p_a->p.l_fork);
+		my_usleep(time_to_e);
+		pthread_mutex_unlock(p_a->p.f_fork);
+		pthread_mutex_unlock(p_a->p.s_fork);
 		if (--*num_to_feed == 0)
 			break ;
 		s_sleep = ft_time(t_z);
 		philo_output("is sleeping", s_sleep, p_a);
-		usleep(time_to_s);
+		my_usleep(time_to_s);
 	}
 }
 

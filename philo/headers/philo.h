@@ -11,8 +11,8 @@ typedef struct		s_philo
 {
 	int				philo_id;
 	int				color;
-	pthread_mutex_t	*b_fork;
-	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*f_fork;
+	pthread_mutex_t	*s_fork;
 	long long int	l_meal;
 	int				num_to_feed;
 	pthread_mutex_t	d_t_acc;
@@ -30,8 +30,8 @@ typedef struct		s_comm_info
 	int				time_to_d;
 	int				time_to_e;
 	int				time_to_s;
-	int				time_dealay;
 	int				num_to_feed;
+	int				start;
 }					t_comm_info;
 
 typedef struct	s_p_arg
@@ -67,7 +67,7 @@ void			set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 												struct timezone *t_z);
 int				is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
 												long long int time_to_d);
-int				is_zero_and_decrease_num_to_feed(int *num_to_feed);
-int				is_zero_num_to_feed(t_p_arg *p_a);
 int				init_philo_acc_mutexes(t_p_arg *p_a);
+void			wait_start(t_p_arg *p_a);
+void			my_usleep(long long int	time_to_sleep);
 #endif

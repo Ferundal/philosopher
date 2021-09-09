@@ -30,6 +30,7 @@ int	simulatiion_unlim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pth
 		pthread_create(tread_p + i, NULL, philo_life_unlim_start, p_arg_p + i);
 		i += 1;
 	}
+	c_info->start = 1;
 	p_overseer_unlim(c_info, p_arg_p, philo_amnt);
 	return (0);
 }
@@ -48,9 +49,10 @@ int	simulatiion_lim(t_comm_info *c_info, t_p_arg *p_arg_p, int philo_amnt, pthre
 	while (i < philo_amnt)
 	{
 		(p_arg_p + i)->p.l_meal = start_t;
-		pthread_create(tread_p + i, NULL, philo_life_lim_start, p_arg_p + i);
+		pthread_create(tread_p + i, NULL, philo_life_unlim_start, p_arg_p + i);
 		i += 1;
 	}
+	c_info->start_t = 1;
 	p_overseer_lim(c_info, p_arg_pp, philo_amnt);
 	free (p_arg_pp);
 	return (0);

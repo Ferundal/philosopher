@@ -41,7 +41,7 @@ INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 SRCS_C=				src/main.c \
 					src/philo_errors.c \
 					src/ft_isdigit.c \
-					src/philosopher.c \
+					src/philo.c \
 					src/philo_output.c \
 					src/philo_usleep.c \
 					src/ft_atoi.c \
@@ -50,6 +50,7 @@ SRCS_C=				src/main.c \
 					src/philo_overseer.c \
 					src/philo_free.c \
 					src/philo_acc_mutexes.c \
+					src/philo_start.c \
 
 SRCS_C_BONUS=
 
