@@ -33,11 +33,11 @@ int	clean(int status)
 
 int	main(int argc, char **argv)
 {
-	t_comm_info c_info;
-	t_p_arg *p_arg_p;
-	int philo_amnt;
-	pthread_mutex_t *fork_arr;
-	int	(status);
+	t_comm_info		c_info;
+	t_p_arg			*p_arg_p;
+	int				philo_amnt;
+	pthread_mutex_t	*fork_arr;
+	int				status;
 
 	if (check_args(--argc, ++argv) != 0)
 		return (clean(1));

@@ -100,8 +100,8 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 		}
 		else
 		{
-			p_arg_p[counter].p.b_fork = fork_arr + philo_amnt - 1;
-			p_arg_p[counter].p.l_fork = fork_arr + counter;
+			p_arg_p[counter].p.l_fork = fork_arr + philo_amnt - 1;
+			p_arg_p[counter].p.b_fork = fork_arr + counter;
 		}
 		++counter;
 	}

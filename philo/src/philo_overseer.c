@@ -51,7 +51,7 @@ void	p_overseer_lim(t_comm_info *c_info, t_p_arg **p_arg_pp, int philo_amnt)
 		counter = 0;
 		while (counter < philo_amnt)
 		{
-			if (is_zero_num_to_feed(p_arg_pp[counter]) != 1)
+			if (p_arg_pp[counter]->p.num_to_feed != 0)
 			{
 				if (is_dead(p_arg_pp[counter], c_info, time_to_d) != 0)
 					return;
