@@ -32,5 +32,4 @@ void	overseer_output(long long int curr_time, t_p_arg *philo_arg)
 	pthread_mutex_lock(&philo_arg->c_info->out_mut);
 	printf("\033[%dm%lld %d %s\033[m\n", \
 		philo_arg->p.color, curr_time, philo_arg->p.philo_id, "died");
-	pthread_mutex_unlock(&philo_arg->c_info->out_mut);
 }
