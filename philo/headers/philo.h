@@ -32,6 +32,7 @@ typedef struct		s_comm_info
 	int				time_to_s;
 	int				num_to_feed;
 	int				start;
+	int				philo_amnt;
 }					t_comm_info;
 
 typedef struct	s_p_arg

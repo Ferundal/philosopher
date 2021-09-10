@@ -81,6 +81,7 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 	if (p_arg_p == NULL)
 		return (NULL);
 	counter = 0;
+	c_info->philo_amnt = philo_amnt;
 	while (counter < philo_amnt)
 	{
 		if (init_philo_acc_mutexes(p_arg_p + counter) != 0)
