@@ -62,7 +62,7 @@ OBJS_C_BONUS=		${SRCS_C_BONUS:.s=.o}
 
 OBJS_C=				${SRCS_C:src/%.c=obj/%.o}
 
-NAME=				philo
+NAME=				philo_bonus
 
 CC=					cc -pthread
 RM=					rm -f
