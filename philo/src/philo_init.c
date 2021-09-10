@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjettie <cjettie@21-school.ru>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 20:42:38 by cjettie           #+#    #+#             */
+/*   Updated: 2021/09/10 20:42:58 by cjettie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	init_common_info(t_comm_info *c_info_p, \
@@ -5,9 +17,9 @@ int	init_common_info(t_comm_info *c_info_p, \
 {
 	c_info_p->t_zone.tz_minuteswest = 0;
 	c_info_p->t_zone.tz_dsttime = 0;
-	c_info_p->time_to_d = ft_atoi(argv[1]);
-	c_info_p->time_to_e = ft_atoi(argv[2]);
-	c_info_p->time_to_s = ft_atoi(argv[3]);
+	c_info_p->time_to_d = ft_atoi(argv[1]) * 1000;
+	c_info_p->time_to_e = ft_atoi(argv[2]) * 1000;
+	c_info_p->time_to_s = ft_atoi(argv[3]) * 1000;
 	if (argc < 5)
 		c_info_p->num_to_feed = -1;
 	else
@@ -46,7 +58,7 @@ pthread_mutex_t	*init_fork_array(int fork_amnt)
 	return (fork_arr);
 }
 
-int		color_select(int num)
+int	color_select(int num)
 {
 	num = num % 27;
 	if (num < 1)
@@ -60,15 +72,6 @@ int		color_select(int num)
 	else
 		num += 78;
 	return (num);
-}
-
-void	swap_forks(pthread_mutex_t **f_fork, pthread_mutex_t **s_fork)
-{
-	pthread_mutex_t *temp_fork;
-
-	temp_fork = *f_fork;
-	*f_fork = *s_fork;
-	*s_fork = temp_fork;
 }
 
 t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
@@ -99,4 +102,3 @@ t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
 	}
 	return (p_arg_p);
 }
-

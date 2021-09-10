@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjettie <cjettie@21-school.ru>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 20:45:41 by cjettie           #+#    #+#             */
+/*   Updated: 2021/09/10 20:45:46 by cjettie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int		check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	int		str_pos;
 
@@ -26,11 +38,6 @@ int		check_args(int argc, char **argv)
 	return (0);
 }
 
-int	clean(int status)
-{
-	return (status);
-}
-
 int	main(int argc, char **argv)
 {
 	t_comm_info		c_info;
@@ -49,10 +56,10 @@ int	main(int argc, char **argv)
 		return (clean(status));
 	fork_arr = init_fork_array(philo_amnt);
 	if (fork_arr == NULL)
-		return (clean(6));
+		return (clean(7));
 	p_arg_p = init_val(&c_info, philo_amnt, fork_arr);
 	if (p_arg_p == NULL)
-		return (clean(7));
+		return (clean(8));
 	status = simulation(&c_info, p_arg_p, philo_amnt);
 	return (clean(status));
 }

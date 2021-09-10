@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_acc_mutexes.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjettie <cjettie@21-school.ru>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 20:44:36 by cjettie           #+#    #+#             */
+/*   Updated: 2021/09/10 20:44:50 by cjettie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	set_l_meal(long long int *l_meal, t_p_arg *p_a, \
@@ -10,7 +22,7 @@ void	set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 
 int	is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, long long int time_to_d)
 {
-	long long int curr_time;
+	long long int	curr_time;
 
 	pthread_mutex_lock(&p_arg_p->p.d_t_acc);
 	curr_time = ft_time(&c_info->t_zone);

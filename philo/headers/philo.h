@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cjettie <cjettie@21-school.ru>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 20:33:16 by cjettie           #+#    #+#             */
+/*   Updated: 2021/09/10 20:33:29 by cjettie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
 # include <unistd.h>
-#include <stdlib.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct		s_philo
+typedef struct s_philo
 {
 	int				philo_id;
 	int				color;
@@ -20,22 +32,22 @@ typedef struct		s_philo
 
 }					t_philo;
 
-typedef struct		s_comm_info
+typedef struct s_comm_info
 {
 	long long int	start_t;
 	struct timezone	t_zone;
 	pthread_mutex_t	death_mut;
 	pthread_mutex_t	out_mut;
 	pthread_mutex_t	p_out_mut;
-	int				time_to_d;
-	int				time_to_e;
-	int				time_to_s;
+	long long int	time_to_d;
+	long long int	time_to_e;
+	long long int	time_to_s;
 	int				num_to_feed;
 	int				start;
 	int				philo_amnt;
 }					t_comm_info;
 
-typedef struct	s_p_arg
+typedef struct s_p_arg
 {
 	t_comm_info	*c_info;
 	t_philo		p;
@@ -71,4 +83,5 @@ int				is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
 int				init_philo_acc_mutexes(t_p_arg *p_a);
 void			wait_start(t_p_arg *p_a);
 void			my_usleep(long long int	time_to_sleep);
+int				clean(int status);
 #endif
