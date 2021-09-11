@@ -38,19 +38,26 @@ INC_HEADERS_FORMAT=	-I ${dir ${HEADERS}}
 
 INC_HEADERS_DIR=	${foreach HEADERS, ${HEADERS}, ${INC_HEADERS_FORMAT}}
 
-SRCS_C=				src/main.c \
-					src/philo_errors.c \
+SRCS_C=				src/ft_atoi.c \
 					src/ft_isdigit.c \
+					src/ft_itoa.c \
+					src/ft_num_amount.c \
+					src/ft_strdup.c \
+					src/ft_strlcat.c \
+					src/ft_strlcpy.c \
+					src/ft_strlen.c \
+					src/main.c \
 					src/philo.c \
-					src/philo_output.c \
-					src/philo_usleep.c \
-					src/ft_atoi.c \
-					src/philo_init.c \
-					src/philo_simulation.c \
-					src/philo_overseer.c \
-					src/philo_free.c \
 					src/philo_acc_mutexes.c \
+					src/philo_errors.c \
+					src/philo_free.c \
+					src/philo_init.c \
+					src/philo_output.c \
+					src/philo_overseer.c \
+					src/philo_sem_init.c \
+					src/philo_simulation.c \
 					src/philo_start.c \
+					src/philo_usleep.c \
 
 SRCS_C_BONUS=
 

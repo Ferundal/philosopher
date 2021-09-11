@@ -28,20 +28,20 @@ void	philosopher_life_unlim(t_p_arg *p_a, \
 	long long int	*l_meal;
 	struct timezone	*t_z;
 
-	t_z = &p_a->c_info->t_zone;
+	t_z = &p_a->c_info.t_zone;
 	l_meal = &p_a->p.l_meal;
 	wait_start(p_a);
 	while (1)
 	{
-		pthread_mutex_lock(p_a->p.f_fork);
+		sem_wait(p_a->c_info.forks);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.s_fork);
+		sem_wait(p_a->c_info.forks);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
 		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
 		my_usleep(time_to_e);
-		pthread_mutex_unlock(p_a->p.f_fork);
-		pthread_mutex_unlock(p_a->p.s_fork);
+		sem_post(p_a->c_info.forks);
+		sem_post(p_a->c_info.forks);
 		s_sleep = ft_time(t_z);
 		philo_output("is sleeping", s_sleep, p_a);
 		my_usleep(time_to_s);
@@ -56,20 +56,20 @@ void	philosopher_life_lim(t_p_arg *p_a, \
 	long long int	*l_meal;
 	struct timezone	*t_z;
 
-	t_z = &p_a->c_info->t_zone;
+	t_z = &p_a->c_info.t_zone;
 	l_meal = &p_a->p.l_meal;
 	wait_start(p_a);
 	while (1)
 	{
-		pthread_mutex_lock(p_a->p.f_fork);
+		sem_wait(p_a->c_info.forks);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
-		pthread_mutex_lock(p_a->p.s_fork);
+		sem_wait(p_a->c_info.forks);
 		philo_output("has taken a fork", ft_time(t_z), p_a);
 		set_l_meal(l_meal, p_a, t_z);
 		philo_output("is eating", *l_meal, p_a);
 		my_usleep(time_to_e);
-		pthread_mutex_unlock(p_a->p.f_fork);
-		pthread_mutex_unlock(p_a->p.s_fork);
+		sem_post(p_a->c_info.forks);
+		sem_post(p_a->c_info.forks);
 		if (--*num_to_feed == 0)
 			break ;
 		s_sleep = ft_time(t_z);
@@ -82,8 +82,8 @@ void	philosopher_life_lim(t_p_arg *p_a, \
 void	*philo_life_lim_start(void *p_a)
 {
 	philosopher_life_lim((t_p_arg *)p_a, \
-								((t_p_arg *)p_a)->c_info->time_to_e, \
-								((t_p_arg *)p_a)->c_info->time_to_s, \
+								((t_p_arg *)p_a)->c_info.time_to_e, \
+								((t_p_arg *)p_a)->c_info.time_to_s, \
 								(&((t_p_arg *)p_a)->p.num_to_feed));
 	return (0);
 }
@@ -91,7 +91,7 @@ void	*philo_life_lim_start(void *p_a)
 void	*philo_life_unlim_start(void *p_a)
 {
 	philosopher_life_unlim((t_p_arg *)p_a, \
-								((t_p_arg *)p_a)->c_info->time_to_e, \
-								((t_p_arg *)p_a)->c_info->time_to_s);
+								((t_p_arg *)p_a)->c_info.time_to_e, \
+								((t_p_arg *)p_a)->c_info.time_to_s);
 	return (0);
 }

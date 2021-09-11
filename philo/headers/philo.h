@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_philo
 {
@@ -60,7 +61,7 @@ void			philo_output(char *str, long long int curr_time, \
 void			overseer_output(long long int curr_time, t_p_arg *philo_arg);
 int				init_common_info(t_comm_info *c_info_p, \
 								int argc, char **argv);
-t_p_arg			*init_val(t_comm_info *c_info, int philo_amnt, \
+t_p_arg			*init_philo(t_comm_info *c_info, int philo_amnt, \
 					pthread_mutex_t *fork_arr);
 pthread_mutex_t	*init_fork_array(int fork_amnt);
 int				ft_atoi(const char *str);

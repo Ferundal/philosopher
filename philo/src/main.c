@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 	fork_arr = init_fork_array(philo_amnt);
 	if (fork_arr == NULL)
 		return (clean(7));
-	p_arg_p = init_val(&c_info, philo_amnt, fork_arr);
+	p_arg_p = init_philo(&c_info, philo_amnt, fork_arr);
 	if (p_arg_p == NULL)
 		return (clean(8));
 	status = simulation(&c_info, p_arg_p, philo_amnt);

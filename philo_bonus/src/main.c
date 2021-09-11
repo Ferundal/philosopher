@@ -40,26 +40,17 @@ int	check_args(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_comm_info		c_info;
-	t_p_arg			*p_arg_p;
-	int				philo_amnt;
-	pthread_mutex_t	*fork_arr;
+	t_p_arg			p_arg_p;
 	int				status;
 
 	if (check_args(--argc, ++argv) != 0)
 		return (clean(1));
-	philo_amnt = ft_atoi(*argv);
-	if (philo_amnt < 1)
+	p_arg_p.c_info.philo_amnt = ft_atoi(*argv);
+	if (p_arg_p.c_info.philo_amnt < 1)
 		return (clean(2));
-	status = init_common_info(&c_info, argc, argv);
+	status = init_common_info(&p_arg_p.c_info, argc, argv);
 	if (status != 0)
 		return (clean(status));
-	fork_arr = init_fork_array(philo_amnt);
-	if (fork_arr == NULL)
-		return (clean(7));
-	p_arg_p = init_val(&c_info, philo_amnt, fork_arr);
-	if (p_arg_p == NULL)
-		return (clean(8));
-	status = simulation(&c_info, p_arg_p, philo_amnt);
-	return (clean(status));
+	simulation(&p_arg_p);
+	return (0);
 }

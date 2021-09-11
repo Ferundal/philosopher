@@ -52,27 +52,17 @@ int	philos_full(t_p_arg ***p_arg_ppp, int counter, int *philo_amnt)
 	return (0);
 }
 
-void	p_overseer_lim(t_comm_info *c_info, t_p_arg **p_arg_pp, int philo_amnt)
+void	p_overseer_lim(t_comm_info *c_info, t_p_arg *p_a_p)
 {
 	int				counter;
 	long long int	time_to_d;
 
 	time_to_d = c_info->time_to_d;
-	while (1)
+	while (p_a_p->p.num_to_feed != 0)
 	{
-		counter = 0;
-		while (counter < philo_amnt)
-		{
-			if (p_arg_pp[counter]->p.num_to_feed != 0)
-			{
-				if (is_dead(p_arg_pp[counter], c_info, time_to_d) != 0)
-					return ;
-			}
-			else
-				philos_full(&p_arg_pp, counter, &philo_amnt);
-			++counter;
-		}
-		if (philo_amnt < 1)
-			break ;
+		if (is_dead(p_a_p, c_info, time_to_d) != 0)
+			return ;
+		++counter;
+	}
 	}
 }

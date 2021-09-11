@@ -31,10 +31,8 @@ void	special_start(long long int *dealay, t_p_arg *p_a)
 
 void	wait_start(t_p_arg *p_a)
 {
-	int				*start;
 	long long int	dealay;
 
-	start = &p_a->c_info->start;
 	if (p_a->c_info->time_to_e * 2 + p_a->c_info->time_to_s - \
 		p_a->c_info->time_to_d > 0 && p_a->c_info->time_to_e * 2 \
 		< p_a->c_info->time_to_d && p_a->c_info->philo_amnt % 2 == 1)
@@ -48,7 +46,6 @@ void	wait_start(t_p_arg *p_a)
 		if (p_a->p.philo_id % 2 == 1)
 			dealay = 0;
 	}
-	while (*start == 0)
-		(void)start;
+	sem_wait(p_a->c_info.start_sem);
 	my_usleep(dealay);
 }

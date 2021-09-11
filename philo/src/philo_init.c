@@ -74,7 +74,7 @@ int	color_select(int num)
 	return (num);
 }
 
-t_p_arg	*init_val(t_comm_info *c_info, int philo_amnt, \
+t_p_arg	*init_philo(t_comm_info *c_info, int philo_amnt, \
 					pthread_mutex_t *fork_arr)
 {
 	t_p_arg		*p_arg_p;
