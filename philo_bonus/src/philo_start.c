@@ -33,20 +33,13 @@ void	wait_start(t_p_arg *p_a)
 {
 	long long int	dealay;
 
-	if (p_a->c_info.time_to_e * 2 + p_a->c_info.time_to_s - \
-		p_a->c_info.time_to_d > 0 && p_a->c_info.time_to_e * 2 \
-		< p_a->c_info.time_to_d && p_a->c_info.philo_amnt % 2 == 1)
-		special_start(&dealay, p_a);
+	if (p_a->c_info.time_to_e > p_a->c_info.time_to_d)
+		dealay = p_a->c_info.time_to_d / 2;
 	else
-	{
-		if (p_a->c_info.time_to_e > p_a->c_info.time_to_d)
-			dealay = p_a->c_info.time_to_d / 2;
-		else
-			dealay = p_a->c_info.time_to_e / 2;
-		if (p_a->p.philo_id % 2 == 1)
-			dealay = 0;
-	}
-	while (p_a->c_info.start == 1)
+		dealay = p_a->c_info.time_to_e / 2;
+	if (p_a->p.philo_id % 2 == 1)
+		dealay = 0;
+	while (p_a->c_info.start == 0)
 		(void)dealay;
 	my_usleep(dealay);
 }
