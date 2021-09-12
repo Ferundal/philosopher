@@ -16,7 +16,7 @@ void	special_start(long long int *dealay, t_p_arg *p_a)
 {
 	*dealay = p_a->c_info->time_to_e * 3 - p_a->c_info->time_to_d;
 	if (*dealay <= 0)
-		*dealay = p_a->c_info->time_to_e;
+		*dealay = p_a->c_info->time_to_e - 10000;
 	if ((p_a->c_info->philo_amnt % 2 == 1) && \
 	(p_a->p.philo_id == p_a->c_info->philo_amnt - 1))
 		*dealay = p_a->c_info->time_to_e / 2 * 3;
