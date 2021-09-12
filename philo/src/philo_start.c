@@ -36,7 +36,7 @@ void	wait_start(t_p_arg *p_a)
 
 	start = &p_a->c_info->start;
 	if (p_a->c_info->time_to_e * 2 + p_a->c_info->time_to_s \
-		> p_a->c_info->time_to_d + 10 && p_a->c_info->time_to_e * 2 \
+		> p_a->c_info->time_to_d - 11 && p_a->c_info->time_to_e * 2 \
 		< p_a->c_info->time_to_d && p_a->c_info->philo_amnt % 2 == 1)
 		special_start(&dealay, p_a);
 	else
