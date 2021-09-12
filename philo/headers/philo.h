@@ -79,7 +79,7 @@ void			p_overseer_lim(t_comm_info *c_info, \
 void			*destroy_philo_mutex(t_p_arg *p_arg_p, int counter);
 void			set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 												struct timezone *t_z);
-int				is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
+int				is_dead(t_p_arg *p_a, t_comm_info *c_info, \
 												long long int time_to_d);
 int				init_philo_acc_mutexes(t_p_arg *p_a);
 void			wait_start(t_p_arg *p_a);

@@ -34,8 +34,8 @@ typedef struct s_philo
 	int				color;
 	long long int	l_meal;
 	int				num_to_feed;
-	pthread_mutex_t	d_t_acc;
-	pthread_mutex_t	n_t_f_acc;
+	sem_t			*d_t_acc;
+	sem_t			*n_t_f_acc;
 }					t_philo;
 
 typedef struct s_comm_info
@@ -47,6 +47,7 @@ typedef struct s_comm_info
 	sem_t			*out_sem;
 	sem_t			*p_out_sem;
 	sem_t			*quit_sem;
+	sem_t			*job_done_sem;
 	sem_t			*start_sem;
 	long long int	time_to_d;
 	long long int	time_to_e;
@@ -54,7 +55,7 @@ typedef struct s_comm_info
 	int				num_to_feed;
 	int				start;
 	int				philo_amnt;
-	pthread_t		*g_overseer;
+	pthread_t		g_overseer;
 }					t_comm_info;
 
 typedef struct s_p_arg
@@ -78,16 +79,14 @@ void			start_simulation(t_comm_info *c_info, \
 									t_p_arg *p_arg_p, int philo_amnt);
 void			simulation(t_p_arg *p_arg_p);
 long long int	ft_time(struct timezone *t_zone);
-void			*philo_life_lim_start(t_p_arg *p_arg_p);
-void			*philo_life_unlim_start(t_p_arg *p_arg_p);
-void			p_overseer_unlim(t_comm_info *c_info, \
-						t_p_arg *p_arg_p, int philo_amnt);
-void			p_overseer_lim(t_comm_info *c_info, \
-						t_p_arg **p_arg_pp, int philo_amnt);
+void			*philo_life_lim_start(void *p_a);
+void			*philo_life_unlim_start(void *p_a);
+void			p_overseer_unlim(t_comm_info *c_info, t_p_arg *p_a_p);
+void			p_overseer_lim(t_comm_info *c_info, t_p_arg *p_a_p);
 void			*destroy_philo_mutex(t_p_arg *p_arg_p, int counter);
 void			set_l_meal(long long int *l_meal, t_p_arg *p_a, \
 												struct timezone *t_z);
-int				is_dead(t_p_arg *p_arg_p, t_comm_info *c_info, \
+int				is_dead(t_p_arg *p_a, t_comm_info *c_info, \
 												long long int time_to_d);
 int				init_philo_acc_mutexes(t_p_arg *p_a);
 void			wait_start(t_p_arg *p_a);

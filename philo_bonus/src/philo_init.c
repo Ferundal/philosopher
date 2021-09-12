@@ -26,13 +26,8 @@ void	init_common_info_arg(t_comm_info *c_info_p, \
 		c_info_p->num_to_feed = ft_atoi(argv[4]);
 }
 
-int	init_common_info(t_comm_info *c_info_p, \
-					int argc, char **argv)
+int	init_common_sems(t_comm_info *c_info_p)
 {
-	init_common_info_arg(c_info_p, argc, argv);
-	if (c_info_p->num_to_feed == 0)
-		return (3);
-	c_info_p->death_sem = init_sem_philo("philo_death_sem", 1);
 	if (c_info_p->death_sem == SEM_FAILED)
 		return (4);
 	c_info_p->out_sem = init_sem_philo("philo_out_sem", 1);
@@ -50,6 +45,22 @@ int	init_common_info(t_comm_info *c_info_p, \
 	c_info_p->start_sem= init_sem_philo("philo_start_sem", 0);;
 	if (c_info_p->start_sem == SEM_FAILED)
 		return (9);
+	c_info_p->job_done_sem = init_sem_philo("philo_active_sem", 0);;
+	if (c_info_p->job_done_sem == SEM_FAILED)
+		return (10);
+	return (0);
+}
+
+int	init_common_info(t_comm_info *c_info_p, int argc, char **argv)
+{
+	int		status;
+
+	init_common_info_arg(c_info_p, argc, argv);
+	if (c_info_p->num_to_feed == 0)
+		return (3);
+	status = init_common_sems(c_info_p);
+	if (status != 0)
+		return (status);
 	return (0);
 }
 
@@ -71,7 +82,18 @@ int	color_select(int num)
 
 void	init_philo(t_p_arg *p_arg_p, int counter)
 {
+	char	*counter_to_str;
+
+	counter_to_str = ft_itoa(counter);
 	p_arg_p->p.philo_id = counter + 1;
 	p_arg_p->p.color = color_select(counter);
 	p_arg_p->p.num_to_feed = p_arg_p->c_info.num_to_feed;
+	p_arg_p->p.d_t_acc = init_sem_philo(counter_to_str, 0);
+	if (p_arg_p->p.d_t_acc == SEM_FAILED)
+		exit (0);
+	sem_unlink(counter_to_str);
+	p_arg_p->p.n_t_f_acc = init_sem_philo(counter_to_str, 0);
+	if (p_arg_p->p.n_t_f_acc == SEM_FAILED)
+		exit (0);
+	sem_unlink(counter_to_str);
 }

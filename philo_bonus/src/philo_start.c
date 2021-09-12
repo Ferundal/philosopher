@@ -14,18 +14,18 @@
 
 void	special_start(long long int *dealay, t_p_arg *p_a)
 {
-	*dealay = p_a->c_info->time_to_e * 3 - p_a->c_info->time_to_d;
-	if ((p_a->c_info->philo_amnt % 2 == 1) && \
-	(p_a->p.philo_id == p_a->c_info->philo_amnt - 1))
-		*dealay = p_a->c_info->time_to_e / 2 * 3;
-	else if ((p_a->c_info->philo_amnt % 2 == 1) && \
-	(p_a->p.philo_id == p_a->c_info->philo_amnt))
-		*dealay = (p_a->c_info->time_to_d - p_a->c_info->time_to_e * 2) / 2;
+	*dealay = p_a->c_info.time_to_e * 3 - p_a->c_info.time_to_d;
+	if ((p_a->c_info.philo_amnt % 2 == 1) && \
+	(p_a->p.philo_id == p_a->c_info.philo_amnt - 1))
+		*dealay = p_a->c_info.time_to_e / 2 * 3;
+	else if ((p_a->c_info.philo_amnt % 2 == 1) && \
+	(p_a->p.philo_id == p_a->c_info.philo_amnt))
+		*dealay = (p_a->c_info.time_to_d - p_a->c_info.time_to_e * 2) / 2;
 	else if (p_a->p.philo_id % 2 == 0)
-		*dealay = *dealay * 3 / (p_a->c_info->philo_amnt - 1) \
-									* (p_a->c_info->philo_amnt + 1) / 2;
+		*dealay = *dealay * 3 / (p_a->c_info.philo_amnt - 1) \
+									* (p_a->c_info.philo_amnt + 1) / 2;
 	else
-		*dealay = *dealay * 3 / (p_a->c_info->philo_amnt - 3) \
+		*dealay = *dealay * 3 / (p_a->c_info.philo_amnt - 3) \
 											* (p_a->p.philo_id - 1) / 2;
 }
 
@@ -33,19 +33,20 @@ void	wait_start(t_p_arg *p_a)
 {
 	long long int	dealay;
 
-	if (p_a->c_info->time_to_e * 2 + p_a->c_info->time_to_s - \
-		p_a->c_info->time_to_d > 0 && p_a->c_info->time_to_e * 2 \
-		< p_a->c_info->time_to_d && p_a->c_info->philo_amnt % 2 == 1)
+	if (p_a->c_info.time_to_e * 2 + p_a->c_info.time_to_s - \
+		p_a->c_info.time_to_d > 0 && p_a->c_info.time_to_e * 2 \
+		< p_a->c_info.time_to_d && p_a->c_info.philo_amnt % 2 == 1)
 		special_start(&dealay, p_a);
 	else
 	{
-		if (p_a->c_info->time_to_e > p_a->c_info->time_to_d)
-			dealay = p_a->c_info->time_to_d / 2;
+		if (p_a->c_info.time_to_e > p_a->c_info.time_to_d)
+			dealay = p_a->c_info.time_to_d / 2;
 		else
-			dealay = p_a->c_info->time_to_e / 2;
+			dealay = p_a->c_info.time_to_e / 2;
 		if (p_a->p.philo_id % 2 == 1)
 			dealay = 0;
 	}
-	sem_wait(p_a->c_info.start_sem);
+	while (p_a->c_info.start == 1)
+		(void)dealay;
 	my_usleep(dealay);
 }

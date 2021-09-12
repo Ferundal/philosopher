@@ -48,7 +48,7 @@ SRCS_C=				src/ft_atoi.c \
 					src/ft_strlen.c \
 					src/main.c \
 					src/philo.c \
-					src/philo_acc_mutexes.c \
+					src/philo_acc_sems.c \
 					src/philo_errors.c \
 					src/philo_free.c \
 					src/philo_init.c \
@@ -94,7 +94,7 @@ ${NAME}:			${OBJS_C} ${LIBS}
 					${CC} ${ALL_LDFLAGS} ${OBJS_C} ${LIBS_INC} ${LIBS_EXT} -o ${NAME}
 
 bonus:
-					${MAKE} COMPILE_BONUS=1 all
+					${MAKE}
 
 #$(INSTALL_PROGRAM)=	${TEST_NAME} $(DESTDIR)$(bindir)/foo	#where executeable shoud be placed
 #$(INSTALL_DATA)=	${NAME} $(DESTDIR)$(libdir)/libfoo.a		#where libs shoud be placed

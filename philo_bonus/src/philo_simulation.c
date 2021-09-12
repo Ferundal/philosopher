@@ -12,13 +12,6 @@
 
 #include "philo.h"
 
-
-
-void	philo_life_start(t_p_arg *p_a)
-{
-
-}
-
 void	*global_overseer(void *p_a_v)
 {
 	t_p_arg	*p_a;
@@ -26,7 +19,10 @@ void	*global_overseer(void *p_a_v)
 
 	p_a = (t_p_arg *)p_a_v;
 	counter = 0;
-	while (counter < p_a)
+	while (counter < p_a->c_info.philo_amnt)
+		sem_wait(p_a->c_info.job_done_sem);
+	sem_post(p_a->c_info.quit_sem);
+	return (NULL);
 }
 
 void	simulation_lim(t_p_arg *p_a)
@@ -34,14 +30,21 @@ void	simulation_lim(t_p_arg *p_a)
 	int				counter;
 	pid_t			pid;
 
+	(void)counter;
+	(void)pid;
+	init_philo(p_a, 0);
+	p_overseer_lim(&p_a->c_info, p_a);
+	sem_post(p_a->c_info.job_done_sem);
+	/*
 	counter = 0;
 	while (counter < p_a->c_info.philo_amnt)
 	{
-		init_philo(p_a, counter);
 		pid = fork();
 		if (pid == 0)
 		{
-			philo_life_start(p_a);
+			init_philo(p_a, counter);
+			p_overseer_lim(&p_a->c_info, p_a);
+			sem_post(p_a->c_info.job_done_sem);
 			exit(0);
 		}
 		++counter;
@@ -50,8 +53,7 @@ void	simulation_lim(t_p_arg *p_a)
 	while (counter++ < p_a->c_info.philo_amnt)
 		sem_post(p_a->c_info.start_sem);
 	sem_wait(p_a->c_info.quit_sem);
-	kill(0, SIGQUIT);
-	exit(0);
+	kill(0, SIGQUIT);*/
 }
 
 void	simulation_unlim(t_p_arg *p_a)
@@ -62,46 +64,28 @@ void	simulation_unlim(t_p_arg *p_a)
 	counter = 0;
 	while (counter < p_a->c_info.philo_amnt)
 	{
-		init_philo(p_a, counter);
 		pid = fork();
 		if (pid == 0)
 		{
-			philo_life_start(p_a);
+			init_philo(p_a, counter);
+			p_overseer_unlim(&p_a->c_info, p_a);
 			exit(0);
 		}
 		++counter;
 	}
 	counter = 0;
-	pthread_create(p_a->c_info.g_overseer, NULL, global_overseer, p_a);
+	pthread_create(&p_a->c_info.g_overseer, NULL, global_overseer, p_a);
 	while (counter++ < p_a->c_info.philo_amnt)
 		sem_post(p_a->c_info.start_sem);
 	sem_wait(p_a->c_info.quit_sem);
 	kill(0, SIGQUIT);
-	exit(0);
 }
 
 void	simulation(t_p_arg *p_a)
 {
-	int				counter;
-	pid_t			pid;
-
-	counter = 0;
-	while (counter < p_a->c_info.philo_amnt)
-	{
-		init_philo(p_a, counter);
-		pid = fork();
-		if (pid == 0)
-		{
-			philo_life_start(p_a);
-			exit(0);
-		}
-		++counter;
-	}
-	counter = 0;
-	while (counter++ < p_a->c_info.philo_amnt)
-		sem_post(p_a->c_info.start_sem);
-	sem_wait(p_a->c_info.quit_sem);
-	kill(0, SIGQUIT);
-	exit(0);
+	if (p_a->c_info.num_to_feed < 0)
+		simulation_unlim(p_a);
+	else
+		simulation_lim(p_a);
 }
 
